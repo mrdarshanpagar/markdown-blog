@@ -5,6 +5,12 @@ app.set('view engine','ejs');
 app.use('/articles',articleRouter)
 
 app.get('/',(req, res)=>{
-    res.render('index')
+    const articles = [
+        {
+            title: "health",
+            createdAt: new Date(),
+        }
+    ]
+    res.render('articles/index',{articles: articles})
 })
 app.listen(8000)
