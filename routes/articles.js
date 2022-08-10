@@ -1,5 +1,4 @@
 const express = require('express')
-const { count } = require('./../models/article')
 const Article = require('./../models/article')
 const router = express.Router()
 
@@ -29,6 +28,11 @@ router.post('/', async(req, res)=>{
         console.log(err.message)
         res.render('articles/new',{article: article})
     }
+})
+
+router.delete('/:id', async(req, res) =>{
+    await Article.findByIdAndDelete(req.params.id)
+    res.redirect('/')
 })
 
 module.exports = router
