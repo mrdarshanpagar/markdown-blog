@@ -6,6 +6,11 @@ router.get('/new',(req, res)=>{
     res.render("articles/new",{article: new Article()})
 })
 
+router.get('/edit/:id', async(req, res)=>{
+    const article = await Article.findById(req.params.id)
+    res.render('articles/edit',{article:article})
+})
+
 router.get('/:id', async(req, res)=>{
     const article = await Article.findById(req.params.id)
     if(article == null){
@@ -27,6 +32,21 @@ router.post('/', async(req, res)=>{
     }catch(err){
         console.log(err.message)
         res.render('articles/new',{article: article})
+    }
+})
+
+router.put('/:id', async(req,res)=>{
+    const article = await Article.findById(req.params.id)
+    article.title = req.body.title,
+    article.description = req.body.description,
+    article.markdown = req.body.markdown
+
+    try{
+        await article.save()
+        res.redirect(`/articles/${article.id}`)
+    }catch(err){
+        console.log(err.message)
+        res.render('articles/edit',{article: article})
     }
 })
 
