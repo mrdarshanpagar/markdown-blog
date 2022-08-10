@@ -20,7 +20,7 @@
       <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
 
       <div>
-        <%= article.markdown %>
+        <%- article.sanitizedHtml %>
       </div>
     </div>
   </body>
